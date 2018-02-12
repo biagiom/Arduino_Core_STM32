@@ -63,12 +63,19 @@ const PinMap PinMap_WKUP[] = {
     {PC_5,  NP,  5},  //WKUP5
     {NC,    NP,  0}
 };
+#elif defined(STM32F401xE)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {NC,    NP,  0}
+};
 #endif
 
+#if defined(STM32L4xx) || defined(STM32L0xx)
 // Save UART handler for callback
 static UART_HandleTypeDef* WakeUpUart = NULL;
 // Save callback pointer
 static void (*WakeUpUartCb)( void ) = NULL;
+#endif
 
 /**
   * @brief  Initialize low power mode
@@ -79,8 +86,10 @@ void LowPower_init(){
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
 
+#if defined(STM32L4xx) || defined(STM32L0xx)
   /* Ensure that HSI is wake-up system clock */
   __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
+#endif
 
   /* Check if the system was resumed from StandBy mode */
   if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
@@ -103,8 +112,12 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
 #ifndef STM32L4xx
   UNUSED(mode);
 #endif
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F401xE)
   PinName p = digitalPinToPinName(pin);
   uint32_t wupPin = pinmap_find_function(p, PinMap_WKUP);
+#else
+  uint32_t wupPin = 1;
+#endif
   switch (wupPin) {
 #ifdef PWR_WAKEUP_PIN1
     case 1 :
@@ -199,9 +212,11 @@ void LowPower_sleep(uint32_t regulator){
   HAL_ResumeTick();
   __enable_irq();
 
+#if defined(STM32L4xx) || defined(STM32L0xx)
   if (WakeUpUartCb != NULL) {
     WakeUpUartCb();
   }
+#endif
 }
 
 /**
@@ -286,6 +301,7 @@ void LowPower_shutdown(){
 #endif
 }
 
+#if defined(STM32L4xx) || defined(STM32L0xx)
 /**
   * @brief  Configure the UART as a wakeup source. A callback can be called when
   *         the chip leaves the low power mode. See board datasheet to check
@@ -317,6 +333,7 @@ void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
   /* Enable the UART Wake UP from STOP1 mode Interrupt */
   __HAL_UART_ENABLE_IT(WakeUpUart, UART_IT_WUF);
 }
+#endif
 
 #ifdef __cplusplus
 }

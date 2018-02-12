@@ -41,7 +41,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#if defined(STM32L4xx) || defined(STM32L0xx)
 #include "uart.h"
+#endif
 
 #ifdef HAL_PWR_MODULE_ENABLED
 
@@ -56,7 +58,9 @@
 
 void LowPower_init();
 void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode);
+#if defined(STM32L4xx) || defined(STM32L0xx)
 void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) );
+#endif
 void LowPower_sleep(uint32_t regulator);
 void LowPower_stop();
 void LowPower_standby();
