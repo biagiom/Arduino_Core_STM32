@@ -48,13 +48,122 @@
 // NOTE: is these pins are common to a MCU family?
 /* Wakeup pins list. Allow to know which pins can be used as wake up pin in
 standby or shutdown mode */
-#if defined(STM32L053xx)
+#if defined(STM32F0xx)
+#if defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || \
+    defined(STM32F091xC) || defined(STM32F098xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {PE_6,  NP,  3},  //WKUP3
+    {PA_2,  NP,  4},  //WKUP4
+    {PC_5,  NP,  5},  //WKUP5
+    {PB_5,  NP,  6},  //WKUP6
+    {PB_15, NP,  7},  //WKUP7
+    {NC,    NP,  0}
+};
+#elif defined(STM32F070xB)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {PA_2,  NP,  4},  //WKUP4
+    {PC_5,  NP,  5},  //WKUP5
+    {PB_5,  NP,  6},  //WKUP6
+    {PB_15, NP,  7},  //WKUP7
+    {NC,    NP,  0}
+};
+#endif
+
+#elif defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {NC,    NP,  0}
+};
+
+#elif defined(STM32F4xx)
+#if defined(STM32F410Tx) || defined(STM32F410Cx) || defined(STM32F410Rx) || \
+    defined(STM32F446xx) || defined(STM32F412Zx) || defined(STM32F412Vx) || \
+    defined(STM32F412Rx) || defined(STM32F412Cx) || defined(STM32F413xx) || defined(STM32F423xx)
 const PinMap PinMap_WKUP[] = {
     {PA_0,  NP,  1},  //WKUP1
     {PC_13, NP,  2},  //WKUP2
     {NC,    NP,  0}
 };
-#elif defined(STM32L476xx)
+#elif defined(STM32F410Tx) || defined(STM32F410Cx) || defined(STM32F410Rx) || \
+      defined(STM32F412Zx) || defined(STM32F412Vx) || defined(STM32F412Rx) || \
+      defined(STM32F412Cx) || defined(STM32F413xx) || defined(STM32F423xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0, NP,  1},  //WKUP1
+    {PC_0, NP,  2},  //WKUP2
+    {PC_1, NP,  2},  //WKUP3
+    {NC,   NP,  0}
+};
+#else
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {NC,    NP,  0}
+};
+#endif
+
+#elif defined(STM32F7xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PA_2,  NP,  2},  //WKUP2
+    {PC_1,  NP,  3},  //WKUP3
+    {PC_13, NP,  4},  //WKUP4
+    {PI_8,  NP,  5},  //WKUP5
+    {PI_11, NP,  5},  //WKUP5
+    {NC,    NP,  0}
+};
+
+#elif defined(STM32L0xx)
+#if defined(STM32L071xx) || defined(STM32L072xx) || defined(STM32L073xx) || \
+    defined(STM32L031xx) || defined(STM32L041xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {PE_6,  NP,  2},  //WKUP3
+    {NC,    NP,  0}
+};
+#elif defined(STM32L051xx) || defined(STM32L052xx) || defined(STM32L053xx) || \
+      defined(STM32L061xx) || defined(STM32L062xx) || defined(STM32L063xx) || \
+      defined(STM32L081xx) || defined(STM32L082xx) || defined(STM32L083xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {NC,    NP,  0}
+};
+#elif defined(STM32L011xx) || defined(STM32L021xx)
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PA_2,  NP,  3},  //WKUP3
+    {NC,    NP,  0}
+};
+#endif
+
+
+#elif defined(STM32L1xx)
+#if defined (STM32L151xCA) || defined (STM32L151xD)  || defined (STM32L152xCA) || \
+    defined (STM32L152xD)  || defined (STM32L162xCA) || defined (STM32L162xD)  || \
+    defined (STM32L151xE)  || defined (STM32L151xDX) || defined (STM32L152xE)  || \
+    defined (STM32L152xDX) || defined (STM32L162xE)  || defined (STM32L162xDX) || \
+    defined (STM32L151xB)  || defined (STM32L151xBA) || defined (STM32L151xC)  || \
+    defined (STM32L152xB)  || defined (STM32L152xBA) || defined (STM32L152xC)  || defined (STM32L162xC) \
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {PE_6,  NP,  2},  //WKUP3
+    {NC,    NP,  0}
+};
+#else
+const PinMap PinMap_WKUP[] = {
+    {PA_0,  NP,  1},  //WKUP1
+    {PC_13, NP,  2},  //WKUP2
+    {NC,    NP,  0}
+};
+#endif
+
+
+#elif defined(STM32L4xx)
 const PinMap PinMap_WKUP[] = {
     {PA_0,  NP,  1},  //WKUP1
     {PC_13, NP,  2},  //WKUP2
@@ -63,14 +172,9 @@ const PinMap PinMap_WKUP[] = {
     {PC_5,  NP,  5},  //WKUP5
     {NC,    NP,  0}
 };
-#elif defined(STM32F401xE)
-const PinMap PinMap_WKUP[] = {
-    {PA_0,  NP,  1},  //WKUP1
-    {NC,    NP,  0}
-};
 #endif
 
-#if defined(STM32L4xx) || defined(STM32L0xx)
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F0xx) || defined(STM32F3xx)
 // Save UART handler for callback
 static UART_HandleTypeDef* WakeUpUart = NULL;
 // Save callback pointer
@@ -112,12 +216,9 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
 #ifndef STM32L4xx
   UNUSED(mode);
 #endif
-#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F401xE)
   PinName p = digitalPinToPinName(pin);
   uint32_t wupPin = pinmap_find_function(p, PinMap_WKUP);
-#else
-  uint32_t wupPin = 1;
-#endif
+  
   switch (wupPin) {
 #ifdef PWR_WAKEUP_PIN1
     case 1 :
@@ -227,7 +328,7 @@ void LowPower_sleep(uint32_t regulator){
 void LowPower_stop(){
   __disable_irq();
 
-#if STM32L4xx
+#ifdef STM32L4xx
   if (WakeUpUart != NULL) {
     HAL_UARTEx_EnableStopMode(WakeUpUart);
   }
@@ -251,7 +352,7 @@ void LowPower_stop(){
   SystemClock_Config();
   __enable_irq();
 
-#if STM32L4xx
+#ifdef STM32L4xx
   if (WakeUpUart != NULL) {
     HAL_UARTEx_DisableStopMode(WakeUpUart);
 
@@ -301,7 +402,7 @@ void LowPower_shutdown(){
 #endif
 }
 
-#if defined(STM32L4xx) || defined(STM32L0xx)
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F0xx) || defined(STM32F3xx)
 /**
   * @brief  Configure the UART as a wakeup source. A callback can be called when
   *         the chip leaves the low power mode. See board datasheet to check

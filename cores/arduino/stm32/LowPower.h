@@ -41,7 +41,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
-#if defined(STM32L4xx) || defined(STM32L0xx)
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F0xx) || defined(STM32F3xx)
 #include "uart.h"
 #endif
 
@@ -58,7 +58,7 @@
 
 void LowPower_init();
 void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode);
-#if defined(STM32L4xx) || defined(STM32L0xx)
+#if defined(STM32L4xx) || defined(STM32L0xx) || defined(STM32F0xx) || defined(STM32F3xx)
 void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) );
 #endif
 void LowPower_sleep(uint32_t regulator);
